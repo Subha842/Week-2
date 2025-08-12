@@ -1,0 +1,24 @@
+def dynamicArray(n, queries):
+    seqList = [[] for _ in range(n)]
+    lastAnswer = 0
+    answers = []
+
+    for query in queries:
+        t, x, y = query
+        idx = (x ^ lastAnswer) % n
+        
+        if t == 1:
+            seqList[idx].append(y)
+        elif t == 2:
+            lastAnswer = seqList[idx][y % len(seqList[idx])]
+            answers.append(lastAnswer)
+
+    return answers
+
+if __name__ == "__main__":
+    n, q = map(int, input().split())
+    queries = [list(map(int, input().split())) for _ in range(q)]
+    
+    results = dynamicArray(n, queries)
+    for ans in results:
+        print(ans)
